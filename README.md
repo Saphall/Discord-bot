@@ -1,1 +1,2 @@
 #  Discord bot
+* Motivation bot
