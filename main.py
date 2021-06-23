@@ -49,6 +49,8 @@ async def on_message(message):
     if any(word in msg for word in sad_words):
         await message.channel.send(random.choice(starter_motivator))
 
+    if msg.startswith('$help'):
+        await message.channel.send("This is bot help.\nCommands:\n* hey, hello, hi :- Bot responds.\n* $motivate :- Generates motivating quotes.\n* $help :- Bot help.")
 
 keep_alive()
 client.run(os.environ['TOKEN'])
