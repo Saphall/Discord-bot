@@ -4,18 +4,21 @@ import requests
 import json
 import random
 from keep_alive import keep_alive
+import string
+from collections import Counter
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 
 client = discord.Client()
 
-sad_words = ["sad", 'depressed', 'unhappy', 'exhausted',
-             'bored', 'miserable', 'depressing', 'depress',
-             'exhausted', 'tired', 'terrible', 'losing'
-             ]
+#sad_words = ["sad", 'depressed', 'unhappy', 'exhausted',
+ #            'bored', 'miserable', 'depressing', 'depress',
+  #           'exhausted', 'tired', 'terrible', 'losing'
+   #          ]
 
 starter_motivator = [
     'Cheer Up!',
-    "Hey I am here for you!",
+    "Always remember, I am here for you!",
     "You are a great person. Remember this!",
     'Think positive man! There is always a bright side!',
     'What about you watching a funny video to swing the mood?'
@@ -38,7 +41,9 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
+    
     msg = message.content.lower()
+
     if ((msg.startswith('$hello')) or (msg.startswith('$hi')) or (msg.startswith('$hey'))):
         await message.channel.send('Hello there! Nice to see you !!\nHow are you feeling?')
 
@@ -46,11 +51,19 @@ async def on_message(message):
         quote = get_quote()
         await message.channel.send(quote)
 
-    if any(word in msg for word in sad_words):
-        await message.channel.send(random.choice(starter_motivator))
-
     if msg.startswith('$help'):
-        await message.channel.send("This is bot help.\nCommands:\n* hey, hello, hi :- Bot responds.\n* $motivate :- Generates motivating quotes.\n* $help :- Bot help.")
+        await message.channel.send("This is bot help.\nCommands:\n* $hey, $hello, $hi :- Bot responds.\n* $motivate :- Generates motivating quotes.\n* $help :- Bot help.")
 
-keep_alive()
+
+
+    cleaned_text = msg.translate(str.maketrans('','',string.punctuation))
+    
+    score = SentimentIntensityAnalyzer().polarity_scores(cleaned_text)
+    neg = score['neg']
+    pos = score['pos']
+    if neg>pos:
+        await message.channel.send('Hey, I am sensing `Negative Sentiment` from you.\n'+f"`{random.choice(starter_motivator)}`")
+    
+
+#keep_alive()
 client.run(os.environ['TOKEN'])
