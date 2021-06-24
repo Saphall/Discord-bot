@@ -14,7 +14,7 @@
 ---
 ### Commands:
 
-* `hey, hello, hi` :- Bot responds.
+* `$hey, $hello, $hi` :- Bot responds.
 * `$motivate` :- Generates motivating quotes.
 * `$help` :- Bot help.
 
