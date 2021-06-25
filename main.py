@@ -53,7 +53,7 @@ async def on_message(message):
     neg = score['neg']
     pos = score['pos']
     if neg>pos:
-        await message.channel.send('Hey, I am sensing `Negative Sentiment` from you.\n'+f"`{random.choice(starter_motivator)}`")
+        await message.channel.send('I am sensing `Negative Sentiment` from you.\n'+f"`{random.choice(starter_motivator)}`")
     
 
 keep_alive()
