@@ -20,7 +20,7 @@
 
 ---
 
-<img src = 'https://github.com/Saphall/Discord-bot/blob/main/Assets/Bot%20Test.gif' >
+<img src = 'https://github.com/Saphall/Discord-bot/blob/main/Assets/demo.gif' >
 
 Functionality are being added further !
 
